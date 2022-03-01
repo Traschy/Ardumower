@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<title>Ardumower Webinterface/Settings/Perimeter</title>
+	<meta name="description" content="Kurzbeschreibung">
+	<link href="../design.css" rel="stylesheet">
+  <script language="javascript" type="text/javascript" src="../functions.js"></script>
+</head>
+
+<body onload="getWerte('s5');">
+
+	<a href="./index.html"><img src="../logo_small.png" alt="Ardumower"></a>
+	<span id="con" style="color:black">Ardumower not connected...</span><span id="aktivity" style="color:black">/</span>
+	<hr>
+
+<table border="0">
+	<col width="500">
+	<tr><td><div style="text-align:center"><font size="5" >Settings/Perimeter</font></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center;float:center">
+			<button id="e00" type="button" onclick="isClicked(this.id)" class="button">
+				Use No
+			</button>
+		</div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="e02">Value 0 (outside)</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="e22">smag 0</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="e23">Timeout 0</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="e08_name">Timed-out if below smag: </span><span id="e08_val">0</span></div><br>
+		<input id="e08" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="2000">
+		<div style="text-align:left;float:left"><span id="e08_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="e08_max">2000</span></div>
+		<div style="text-align:center"><span id="e08_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="e14_name">Timeout (s) if not inside: </span><span id="e14_val">1</span></div><br>
+		<input id="e14" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="1" max="20">
+		<div style="text-align:left;float:left"><span id="e14_min">1</span></div>
+		<div style="text-align:right;float:right"><span id="e14_max">20</span></div>
+		<div style="text-align:center"><span id="e14_act">1</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="e04_name">Trigger timeout: </span><span id="e04_val">0</span></div><br>
+		<input id="e04" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="2000">
+		<div style="text-align:left;float:left"><span id="e04_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="e04_max">2000</span></div>
+		<div style="text-align:center"><span id="e04_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="e05_name">Perimeter out roll time max: </span><span id="e05_val">0</span></div><br>
+		<input id="e05" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="8000">
+		<div style="text-align:left;float:left"><span id="e05_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="e05_max">8000</span></div>
+		<div style="text-align:center"><span id="e05_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="e06_name">Perimeter out roll time min: </span><span id="e06_val">0</span></div><br>
+		<input id="e06" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="8000">
+		<div style="text-align:left;float:left"><span id="e06_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="e06_max">8000</span></div>
+		<div style="text-align:center"><span id="e06_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="e15_name">Perimeter out reverse time: </span><span id="e15_val">0</span></div><br>
+		<input id="e15" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="8000">
+		<div style="text-align:left;float:left"><span id="e15_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="e15_max">8000</span></div>
+		<div style="text-align:center"><span id="e15_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="e16_name">Perimeter tracking roll time: </span><span id="e16_val">0</span></div><br>
+		<input id="e16" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="8000">
+		<div style="text-align:left;float:left"><span id="e16_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="e16_max">8000</span></div>
+		<div style="text-align:center"><span id="e16_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="e17_name">Perimeter tracking reverse time: </span><span id="e17_val">0</span></div><br>
+		<input id="e17" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="8000">
+		<div style="text-align:left;float:left"><span id="e17_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="e17_max">8000</span></div>
+		<div style="text-align:center"><span id="e17_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="e11_name">Transition timeout: </span><span id="e11_val">0</span></div><br>
+		<input id="e11" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="10000">
+		<div style="text-align:left;float:left"><span id="e11_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="e11_max">10000</span></div>
+		<div style="text-align:center"><span id="e11_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="e12_name">Track error timeout: </span><span id="e12_val">0</span></div><br>
+		<input id="e12" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="10000">
+		<div style="text-align:left;float:left"><span id="e12_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="e12_max">10000</span></div>
+		<div style="text-align:center"><span id="e12_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="e07p_name">Track P: </span><span id="e07p_val">0.0</span></div><br>
+		<input id="e07p" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0.0"  min="0" max="100.0" style="background:blue">
+		<div style="text-align:left;float:left"><span id="e07p_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="e07p_max">100.0</span></div>
+		<div style="text-align:center"><span id="e07p_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="e07i_name">Track I: </span><span id="e07i_val">0.0</span></div><br>
+		<input id="e07i" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0.0"  min="0" max="100.0" style="background:orange">
+		<div style="text-align:left;float:left"><span id="e07i_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="e07i_max">100.0</span></div>
+		<div style="text-align:center"><span id="e07i_act">0.0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="e07d_name">Track D: </span><span id="e07d_val">0.0</span></div><br>
+		<input id="e07d" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0.0"  min="0" max="100.0" style="background:yellow">
+		<div style="text-align:left;float:left"><span id="e07d_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="e07d_max">100.0</span></div>
+		<div style="text-align:center"><span id="e07d_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center;float:center">
+			<button id="e10" type="button" onclick="isClicked(this.id)" class="button">
+				Swap coil polarity NO
+			</button>
+		</div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center;float:center">
+			<button id="e10" type="button" onclick="isClicked(this.id)" class="button">
+				Block inner wheel NO
+			</button>
+		</div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="e18_1">State OFF</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="e18_2">Last trigger X</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center;float:center">
+			<button id="e19" type="button" onclick="isClicked(this.id)" class="button">
+				OFF
+			</button>
+		</div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center;float:center">
+			<button id="e20" type="button" onclick="isClicked(this.id)" class="button">
+				Home
+			</button>
+		</div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center;float:center">
+			<button id="e21" type="button" onclick="isClicked(this.id)" class="button">
+				Track
+			</button>
+		</div>
+	</td></tr>
+
+</body>
+</html>

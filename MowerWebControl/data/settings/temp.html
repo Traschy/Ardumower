@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<title>Ardumower Webinterface/Settings/Temp</title>
+	<meta name="description" content="Kurzbeschreibung">
+	<link href="../design.css" rel="stylesheet">
+  <script language="javascript" type="text/javascript" src="../functions.js"></script>
+</head>
+
+<body onload="getWerte('s17');">
+
+	<a href="./index.html"><img src="../logo_small.png" alt="Ardumower"></a>
+	<span id="con" style="color:black">Ardumower not connected...</span><span id="aktivity" style="color:black">/</span>
+	<hr>
+
+<table border="0">
+	<col width="500">
+	<tr><td><div style="text-align:center"><font size="5" >Settings/Temperature Menu</font></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center;float:center">
+			<button id="m200" type="button" onclick="isClicked(this.id)" class="button">
+				Use NO
+			</button>
+		</div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="m201">Temperature 0</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="m202">Humidity 0</span></div></td></tr>
+	
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="m203_name">Maximum Temperature: </span><span id="m203_val">0</span></div><br>
+		<input id="m203" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="80">
+		<div style="text-align:left;float:left"><span id="m203_min">1</span></div>
+		<div style="text-align:right;float:right"><span id="m203_max">80</span></div>
+		<div style="text-align:center"><span id="m203_act">0</span></div>
+	</td></tr>
+
+</body>
+</html>

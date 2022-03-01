@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<title>Ardumower Webinterface/Settings/Motor</title>
+	<meta name="description" content="Kurzbeschreibung">
+	<link href="../design.css" rel="stylesheet">
+  <script language="javascript" type="text/javascript" src="../functions.js"></script>
+</head>
+
+<body onload="getWerte('s1');">
+
+	<a href="./index.html"><img src="../logo_small.png" alt="Ardumower"></a>
+	<span id="con" style="color:black">Ardumower not connected...</span><span id="aktivity" style="color:black">/</span>
+	<hr>
+
+<table border="0">
+	<col width="500">
+	<tr><td><div style="text-align:center"><font size="5" >Settings/Motor</font></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="a00">Overload Counter (l, r): 0, 0</span></div></td></tr>
+	<tr><td><div style="text-align:center"><span id="a01">Power in Watt (l, r): 0, 0</span></div></td></tr>
+	<tr><td><div style="text-align:center"><span id="a05_1">motor current in mA (l, r): 0, 0</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="a02_name">Power max: </span><span id="a02_val">0</span></div><br>
+		<input id="a02" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.1" value="0"  min="0" max="100">
+		<div style="text-align:left;float:left"><span id="a02_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="a02_max">100.0</span></div>
+		<div style="text-align:center"><span id="a02_act">0.0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="a03_name">calibrate left motor: </span><span id="a03_val">0</span></div><br>
+		<input id="a03" type="range" max="100" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="1000">
+		<div style="text-align:left;float:left"><span id="a03_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="a03_max">1000</span></div>
+		<div style="text-align:center"><span id="a03_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="a04_name">calibrate right motor: </span><span id="a04_val">0</span></div><br>
+		<input id="a04" type="range" max="100" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="1000">
+		<div style="text-align:left;float:left"><span id="a04_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="a04_max">1000</span></div>
+		<div style="text-align:center"><span id="a04_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="a05_2">Speed l, r pwm 0, 0</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="a15_name">Speed max in pwm: </span><span id="a15_val">0</span></div><br>
+		<input id="a15" type="range" max="100" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="255">
+		<div style="text-align:left;float:left"><span id="a15_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="a15_max">255</span></div>
+		<div style="text-align:center"><span id="a15_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="a11_name">Accel: </span><span id="a11_val">500</span></div><br>
+		<input id="a11" type="range" max="100" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="500"  min="500" max="2000">
+		<div style="text-align:left;float:left"><span id="a11_min">500</span></div>
+		<div style="text-align:right;float:right"><span id="a11_max">2000</span></div>
+		<div style="text-align:center"><span id="a11_act">500</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="a18_name">Power ignore time: </span><span id="a18_val">0</span></div><br>
+		<input id="a18" type="range" max="100" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="8000">
+		<div style="text-align:left;float:left"><span id="a18_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="a18_max">8000</span></div>
+		<div style="text-align:center"><span id="a18_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="a07_name">Roll time max: </span><span id="a07_val">0</span></div><br>
+		<input id="a07" type="range" max="100" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="8000">
+		<div style="text-align:left;float:left"><span id="a07_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="a07_max">8000</span></div>
+		<div style="text-align:center"><span id="a07_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="a19_name">Roll time min: </span><span id="a19_val">0</span></div><br>
+		<input id="a19" type="range" max="100" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="8000">
+		<div style="text-align:left;float:left"><span id="a19_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="a19_max">8000</span></div>
+		<div style="text-align:center"><span id="a19_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="a08_name">Reverse time: </span><span id="a08_val">0</span></div><br>
+		<input id="a08" type="range" max="100" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="8000">
+		<div style="text-align:left;float:left"><span id="a08_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="a08_max">8000</span></div>
+		<div style="text-align:center"><span id="a08_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="a09_name">Forw time max: </span><span id="a09_val">0</span></div><br>
+		<input id="a09" type="range" max="100" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="10" value="0"  min="0" max="80000">
+		<div style="text-align:left;float:left"><span id="a09_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="a09_max">80000</span></div>
+		<div style="text-align:center"><span id="a09_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="a12_name">Bidir speed ratio 1: </span><span id="a12_val">0</span></div><br>
+		<input id="a12" type="range" max="100" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.01" value="0"  min="0" max="1.0">
+		<div style="text-align:left;float:left"><span id="a12_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="a12_max">1.0</span></div>
+		<div style="text-align:center"><span id="a12_act">0.0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="a13_name">Bidir speed ratio 2: </span><span id="a13_val">0</span></div><br>
+		<input id="a13" type="range" max="100" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.01" value="0"  min="0" max="1.0">
+		<div style="text-align:left;float:left"><span id="a13_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="a13_max">1.0</span></div>
+		<div style="text-align:center"><span id="a13_act">0.0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center;float:center"><button id="a10" type="button" onclick="isClicked(this.id)" class="button">Testing is <br>OFF</button></div></td></tr>
+	<tr><td><div style="text-align:center"><span id="a14" type="text">motorSenseScale l, r: 0, 0</span></div></td></tr>
+	<tr><td><div style="text-align:center;float:center"><button id="a16" type="button" onclick="isClicked(this.id)" class="button">Swap left direction NO</button></div></td></tr>
+	<tr><td><div style="text-align:center;float:center"><button id="a17" type="button" onclick="isClicked(this.id)" class="button">Swap right direction NO</button></div></td></tr>
+
+</body>
+</html>

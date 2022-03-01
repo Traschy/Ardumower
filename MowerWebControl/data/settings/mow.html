@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<title>Ardumower Webinterface/Settings/Mow</title>
+	<meta name="description" content="Kurzbeschreibung">
+	<link href="../design.css" rel="stylesheet">
+  <script language="javascript" type="text/javascript" src="../functions.js"></script>
+</head>
+
+<body onload="getWerte('s2');">
+
+	<a href="./index.html"><img src="../logo_small.png" alt="Ardumower"></a>
+	<span id="con" style="color:black">Ardumower not connected...</span><span id="aktivity" style="color:black">/</span>
+	<hr>
+
+<table border="0">
+	<col width="500">
+	<tr><td><div style="text-align:center"><font size="5" >Settings/Mow</font></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center;float:center"><button id="o12" type="button" onclick="isClicked(this.id)" class="button">Force mowing off: NO</button></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="o00">Overload Counter</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="o01">Power in Watt</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="o11">current in mA</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="o02_name">Power max: </span><span id="o02_val">0.0</span></div><br>
+		<input id="o02" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.1" value="0"  min="0" max="100">
+		<div style="text-align:left;float:left"><span id="o02_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="o02_max">100.0</span></div>
+		<div style="text-align:center"><span id="o02_act">0.0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="o03_name">calibrate mow motor: </span><span id="o03_val">0</span></div><br>
+		<input id="o03" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="3000">
+		<div style="text-align:left;float:left"><span id="o03_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="o03_max">3000</span></div>
+		<div style="text-align:center"><span id="o03_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="o04">Speed </span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="o05_name">Speed max: </span><span id="o05_val">0</span></div><br>
+		<input id="o05" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="255">
+		<div style="text-align:left;float:left"><span id="o05_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="o05_max">255</span></div>
+		<div style="text-align:center"><span id="o05_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="o07">RPM: </span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="o08_name">RPM set: </span><span id="o08_val">0</span></div><br>
+		<input id="o08" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="4500">
+		<div style="text-align:left;float:left"><span id="o08_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="o08_max">4500</span></div>
+		<div style="text-align:center"><span id="o08_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="o09p_name">RPM P: </span><span id="o09p_val">0.0</span></div><br>
+		<input id="o09p" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.01" value="0.0"  min="0.0" max="1.0" style="background:blue">
+		<div style="text-align:left;float:left"><span id="o09p_min">0.01</span></div>
+		<div style="text-align:right;float:right"><span id="o09p_max">1.0</span></div>
+		<div style="text-align:center"><span id="o09p_act">0.0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="o09i_name">RPM I: </span><span id="o09i_val">0</span></div><br>
+		<input id="o09i" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.01" value="0.0"  min="0.0" max="1.0" style="background:orange">
+		<div style="text-align:left;float:left"><span id="o09i_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="o09i_max">100</span></div>
+		<div style="text-align:center"><span id="o09i_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="o09d_name">RPM D: </span><span id="o09d_val">0</span></div><br>
+		<input id="o09d" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.01" value="0.0"  min="0.0" max="1.0" style="background:yellow">
+		<div style="text-align:left;float:left"><span id="o09d_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="o09d_max">100</span></div>
+		<div style="text-align:center"><span id="o09d_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center;float:center"><button id="o10" type="button" onclick="isClicked(this.id)" class="button">Testing is OFF</button></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="o04_2">for config file motorMowSenseScale</span></div></td></tr>
+
+</body>
+</html>

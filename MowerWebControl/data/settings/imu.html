@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<title>Ardumower Webinterface/Settings/IMU</title>
+	<meta name="description" content="Kurzbeschreibung">
+	<link href="../design.css" rel="stylesheet">
+  <script language="javascript" type="text/javascript" src="../functions.js"></script>
+</head>
+
+<body onload="getWerte('s7');">
+
+	<a href="./index.html"><img src="../logo_small.png" alt="Ardumower"></a>
+	<span id="con" style="color:black">Ardumower not connected...</span><span id="aktivity" style="color:black">/</span>
+	<hr>
+
+<table border="0">
+	<col width="500">
+	<tr><td><div style="text-align:center"><font size="5" >Settings/IMU</font></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center;float:center">
+			<button id="g00" type="button" onclick="isClicked(this.id)" class="button">
+				Use NO
+			</button>
+		</div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="g01">Yaw 0 deg</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="g09">DriveHeading 0 deg</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="g02">Pitch 0 deg</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="g03">Roll 0 deg</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center;float:center">
+			<button id="g04" type="button" onclick="isClicked(this.id)" class="button">
+				Correct dir Yes
+			</button>
+		</div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="g05p_name">Dir P: </span><span id="g05p_val">0.0</span></div><br>
+		<input id="g05p" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.1" value="0.0"  min="0" max="20.0" style="background:blue">
+		<div style="text-align:left;float:left"><span id="g05p_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="g05p_max">20.0</span></div>
+		<div style="text-align:center"><span id="g05p_act">0.0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="g05i_name">Dir I: </span><span id="g05i_val">0.0</span></div><br>
+		<input id="g05i" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.1" value="0.0"  min="0" max="20.0" style="background:orange">
+		<div style="text-align:left;float:left"><span id="g05i_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="g05i_max">20.0</span></div>
+		<div style="text-align:center"><span id="g05i_act">0.0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="g05d_name">Dir D: </span><span id="g05d_val">0.0</span></div><br>
+		<input id="g05d" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.1" value="0.0"  min="0" max="20.0" style="background:yellow">
+		<div style="text-align:left;float:left"><span id="g05d_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="g05d_max">20.0</span></div>
+		<div style="text-align:center"><span id="g05d_act">0.0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="g06p_name">Roll P: </span><span id="g06p_val">0.0</span></div><br>
+		<input id="g06p" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.1" value="0.0"  min="0" max="30.0" style="background:blue">
+		<div style="text-align:left;float:left"><span id="g06p_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="g06p_max">30.0</span></div>
+		<div style="text-align:center"><span id="g06p_act">0.0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="g06i_name">Roll I: </span><span id="g06i_val">0.0</span></div><br>
+		<input id="g06i" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.1" value="0.0"  min="0" max="30.0" style="background:orange">
+		<div style="text-align:left;float:left"><span id="g06i_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="g06i_max">30.0</span></div>
+		<div style="text-align:center"><span id="g06i_act">0.0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="g06d_name">Roll D: </span><span id="g06d_val">0.0</span></div><br>
+		<input id="g06d" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.1" value="0.0"  min="0" max="30.0" style="background:yellow">
+		<div style="text-align:left;float:left"><span id="g06d_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="g06d_max">30.0</span></div>
+		<div style="text-align:center"><span id="g06d_act">0.0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center;float:center">
+			<button id="g07" type="button" onclick="isClicked(this.id)" class="button">
+				Acc cal next side
+			</button>
+		</div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center;float:center">
+			<button id="g08" type="button" onclick="isClicked(this.id)" class="button">
+				Com cal start/stop
+			</button>
+		</div>
+	</td></tr>
+
+
+</body>
+</html>

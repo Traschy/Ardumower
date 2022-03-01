@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<title>Ardumower Webinterface/Settings/Odometry</title>
+	<meta name="description" content="Kurzbeschreibung">
+	<link href="../design.css" rel="stylesheet">
+  <script language="javascript" type="text/javascript" src="../functions.js"></script>
+</head>
+
+<body onload="getWerte('s11');">
+
+	<a href="./index.html"><img src="../logo_small.png" alt="Ardumower"></a>
+	<span id="con" style="color:black">Ardumower not connected...</span><span id="aktivity" style="color:black">/</span>
+	<hr>
+
+<table border="0">
+	<col width="500">
+	<tr><td><div style="text-align:center"><font size="5" >Settings/Odometry</font></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center;float:center">
+			<button id="l00" type="button" onclick="isClicked(this.id)" class="button">
+				Use YES
+			</button>
+		</div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="l01_1">Value l, r 0, 0</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center"><span id="l03">RPM Motor l, r 0, 0</span></div></td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="l06_name">Speed max in rpm: </span><span id="l06_val">0</span></div><br>
+		<input id="l06" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="100">
+		<div style="text-align:left;float:left"><span id="l06_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="l06_max">100</span></div>
+		<div style="text-align:center"><span id="l06_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="l07p_name">RPM P: </span><span id="l07p_val">0.0</span></div><br>
+		<input id="l07p" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.01" value="0"  min="0" max="3.0" style="background:blue">
+		<div style="text-align:left;float:left"><span id="l07p_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="l07p_max">3.0</span></div>
+		<div style="text-align:center"><span id="l07p_act">0.0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="l07i_name">RPM I: </span><span id="l07i_val">0.0</span></div><br>
+		<input id="l07i" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.01" value="0"  min="0" max="3.0" style="background:orange">
+		<div style="text-align:left;float:left"><span id="l07i_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="l07i_max">3.0</span></div>
+		<div style="text-align:center"><span id="l07i_act">0.0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="l07d_name">RPM D: </span><span id="l07d_val">0.0</span></div><br>
+		<input id="l07d" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.01" value="0"  min="0" max="3.0" style="background:yellow">
+		<div style="text-align:left;float:left"><span id="l07d_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="l07d_max">3.0</span></div>
+		<div style="text-align:center"><span id="l07d_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="l04_name">Ticks per one full revolution: </span><span id="l04_val">0</span></div><br>
+		<input id="l04" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="1" value="0"  min="0" max="2120">
+		<div style="text-align:left;float:left"><span id="l04_min">0</span></div>
+		<div style="text-align:right;float:right"><span id="l04_max">2120</span></div>
+		<div style="text-align:center"><span id="l04_act">0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="l01_name">Ticks per cm: </span><span id="l01_val">0.0</span></div><br>
+		<input id="l01" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.1" value="0"  min="0" max="35">
+		<div style="text-align:left;float:left"><span id="l01_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="l01_max">35.0</span></div>
+		<div style="text-align:center"><span id="l01_act">0.0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center"><span id="l02_name">Wheel base cm: </span><span id="l02_val">0.0</span></div><br>
+		<input id="l02" type="range" onchange="isChange(this.id);" oninput="isChanging(this.id)" class="slider" step="0.1" value="0.0"  min="0.0" max="50.0">
+		<div style="text-align:left;float:left"><span id="l02_min">0.0</span></div>
+		<div style="text-align:right;float:right"><span id="l02_max">50.0</span></div>
+		<div style="text-align:center"><span id="l02_act">0.0</span></div>
+	</td></tr>
+
+	<tr><td><hr></td></tr>
+	<tr><td>
+		<div style="text-align:center;float:center">
+			<button id="l05" type="button" onclick="isClicked(this.id)" class="button">
+				Testing is OFF
+			</button>
+		</div>
+	</td></tr>
+
+</body>
+</html>
