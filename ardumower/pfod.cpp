@@ -729,11 +729,11 @@ void RemoteControl::sendAREAMenu(boolean update){
 }
 
 void RemoteControl::processAREAMenu(String pfodCmd){       
- if (pfodCmd == "qa3") {robot->P1.X = robot->gpsLat; robot->P1.Y = robot->gpsLon; robot->saveUserSettings(); sendAREAMenu(true);}
-  else if (pfodCmd == "qa4") {robot->P2.X = robot->gpsLat; robot->P2.Y = robot->gpsLon; robot->saveUserSettings(); sendAREAMenu(true);}
-  else if (pfodCmd == "qa5") {robot->P3.X = robot->gpsLat; robot->P3.Y = robot->gpsLon; robot->saveUserSettings(); sendAREAMenu(true);}
-  else if (pfodCmd == "qa6") {robot->P4.X = robot->gpsLat; robot->P4.Y = robot->gpsLon; robot->saveUserSettings(); sendAREAMenu(true);}
-  else if (pfodCmd == "qa7") {robot->P5.X = robot->gpsLat; robot->P5.Y = robot->gpsLon; robot->saveUserSettings(); sendAREAMenu(true);}
+ if (pfodCmd.startsWith("qa3")) {robot->P1.X = robot->gpsLat; robot->P1.Y = robot->gpsLon; robot->saveUserSettings(); sendAREAMenu(true);}
+  else if (pfodCmd.startsWith("qa4")) {robot->P2.X = robot->gpsLat; robot->P2.Y = robot->gpsLon; robot->saveUserSettings(); sendAREAMenu(true);}
+  else if (pfodCmd.startsWith("qa5")) {robot->P3.X = robot->gpsLat; robot->P3.Y = robot->gpsLon; robot->saveUserSettings(); sendAREAMenu(true);}
+  else if (pfodCmd.startsWith("qa6")) {robot->P4.X = robot->gpsLat; robot->P4.Y = robot->gpsLon; robot->saveUserSettings(); sendAREAMenu(true);}
+  else if (pfodCmd.startsWith("qa7")) {robot->P5.X = robot->gpsLat; robot->P5.Y = robot->gpsLon; robot->saveUserSettings(); sendAREAMenu(true);}
 //sendAREAMenu(true);
 }
 
