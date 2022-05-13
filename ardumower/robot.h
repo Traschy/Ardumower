@@ -186,6 +186,7 @@ struct Point
 };
 
 typedef struct Point Point;
+
 //-----------------------ende-----------------
 
 class Robot
@@ -229,14 +230,13 @@ class Robot
     int robotIsStuckCounter ;
 
     //---------Mähzonen TB-----------
- 
-   
+    
     int Area_Soll;
     int Area_Ist;
-    unsigned long nextTimeReadArea;
-
-  
-    //-------------Ende Mähzonen TB----------------
+    //unsigned long nextTimeReadArea;
+    Point P1, P2, P3, P4, P5;
+   
+    //--------Ende Mähzonen TB-------
 
 
     // -------- odometry state --------------------------

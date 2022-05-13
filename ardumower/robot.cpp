@@ -1184,7 +1184,7 @@ void Robot::processGPSData()
   float abstand;
   float radius;
   float richtung;
-  Point P1, P2, P3, P4, P5 ;
+ 
   
   gps.f_get_position(&nlat, &nlon, &age);
   if (nlat == GPS::GPS_INVALID_F_ANGLE ) return;
@@ -1214,7 +1214,6 @@ void Robot::processGPSData()
   
   //----------------   Area 1  --------------------------------------------------------
 
-  P1.X = 50.640200; P1.Y = 6.263300;  //Vorgarten
   abstand = gps.distance_between(P1.X,  P1.Y,  nlat, nlon);
   if (radius >= abstand) Area_Ist = 1;
   Serial.print ("Abstand Area 1: ");
@@ -1227,7 +1226,6 @@ void Robot::processGPSData()
 
   //----------------   Area 2  --------------------------------------------------------
 
-  P2.X = 50.640330; P2.Y = 6.263043;  // oberes teilstück (Ladestation)
   abstand = gps.distance_between(P2.X,  P2.Y,  nlat, nlon);
   if (radius >= abstand) Area_Ist = 2;
   Serial.print ("Abstand Area 2: ");
@@ -1240,7 +1238,6 @@ void Robot::processGPSData()
 
   //----------------   Area 3  --------------------------------------------------------
 
-  P3.X = 50.640290; P3.Y = 6.262839;  // oberes teilstück (Gemüsebeet)
   abstand = gps.distance_between(P3.X,  P3.Y,  nlat, nlon);
   if (radius >= abstand) Area_Ist = 3;
   Serial.print ("Abstand Area 3: ");
@@ -1253,7 +1250,6 @@ void Robot::processGPSData()
 
   //----------------   Area 4  --------------------------------------------------------
   
-  P4.X = 50.640429; P4.Y = 6.262650;   // unteres teilstück (holzstapel)
   abstand = gps.distance_between(P4.X,  P4.Y,  nlat, nlon);
   if (radius >= abstand) Area_Ist = 4;
   Serial.print ("Abstand Area 4:N ");
@@ -1265,7 +1261,6 @@ void Robot::processGPSData()
   
   //----------------   Area 5  --------------------------------------------------------
   
-  P5.X = 50.640512; P5.Y = 6.262753;   // unteres teilstück (sträucher)
   abstand = gps.distance_between(P5.X,  P5.Y,  nlat, nlon);
   if (radius >= abstand) Area_Ist = 5;
   Serial.print ("Abstand Area 5: ");

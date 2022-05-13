@@ -149,6 +149,13 @@ void Robot::loadSaveUserSettings(boolean readflag){
   eereadwrite(readflag, addr, freeWheelUse);  
   eereadwrite(readflag, addr, DHT22Use);
   eereadwrite(readflag, addr, maxTemperature);
+ //--------------Mähzonen-----------------
+  eereadwrite(readflag, addr, P1); 
+  eereadwrite(readflag, addr, P2);
+  eereadwrite(readflag, addr, P3);
+  eereadwrite(readflag, addr, P4);
+  eereadwrite(readflag, addr, P5);
+  //---------Ende Mähzonen-----------------
   Console.print(F("loadSaveUserSettings addrstop="));
   Console.println(addr);
 }
@@ -461,8 +468,28 @@ void Robot::printSettingSerial(){
   Console.println(stuckIfGpsSpeedBelow); 
   Console.print  (F("gpsSpeedIgnoreTime                         : "));
   Console.println(gpsSpeedIgnoreTime); 
+  //----------------------Mähzonen-------------------------------------------------
+  Console.print  (F("P1.X                                       : "));
+  Console.println(P1.X,6); 
+  Console.print  (F("P1.Y                                       : "));
+  Console.println(P1.Y,6);
+  Console.print  (F("P2.X                                       : "));
+  Console.println(P2.X,6); 
+  Console.print  (F("P2.Y                                       : "));
+  Console.println(P2.Y,6);
+  Console.print  (F("P3.X                                       : "));
+  Console.println(P3.X,6); 
+  Console.print  (F("P3.Y                                       : "));
+  Console.println(P3.Y,6); 
+  Console.print  (F("P4.X                                       : "));
+  Console.println(P4.X,6); 
+  Console.print  (F("P4.Y                                       : "));
+  Console.println(P4.Y,6);
+  Console.print  (F("P5.X                                       : "));
+  Console.println(P5.X,6); 
+  Console.print  (F("P5.Y                                       : "));
+  Console.println(P5.Y,6); 
   
-
 // ----- other --------------------------------------------------------------------
   Console.println(F("---------- other ---------------------------------------------"));
   Console.print  (F("buttonUse                                  : "));
