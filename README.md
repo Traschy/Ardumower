@@ -1,5 +1,7 @@
 
     Attention !! The version is experimental and not finished
+    Revision of the original software. Integration of mowing zones
+    uover path points (GPS) along the perimeter wire
 Ardumower
 Description
 
