@@ -216,7 +216,7 @@ void RemoteControl::sendPlotMenu(boolean update){
 void RemoteControl::sendSettingsMenu(boolean update){
   if (update) serialPort->print("{:"); else serialPort->print(F("{.Settings"));
   serialPort->print(F("|sz~Save settings|s1~Motor|s2~Mow|s16~Free wheel|s3~BumperDuino|s4~Sonar|s5~Perimeter|s6~Lawn sensor|s7~IMU|s8~R/C"));
-  serialPort->println(F("|s9~Battery|s10~Station|s11~Odometry|s13~Rain|s17~Temperature|s15~Drop sensor|s14~GPS|s18~Area|i~Timer|s12~Date/time|sx~Factory settings}"));  //Mähzonen  s18~Area
+  serialPort->println(F("|s9~Battery|s10~Station|s11~Odometry|s13~Rain|s17~Temperature|s15~Drop sensor|s14~GPS|i~Timer|s12~Date/time|sx~Factory settings}")); 
 }  
 
 void RemoteControl::sendErrorMenu(boolean update){
@@ -675,15 +675,34 @@ void RemoteControl::sendGPSMenu(boolean update){
   serialPort->print(F("|q09~Altitude "));
   serialPort->print(robot->gps.f_altitude());
   serialPort->print(F("|q10~Latitude "));
-  serialPort->print(lat, 6); 
+  serialPort->print(robot->gpsLat, 6); 
   serialPort->print(F("|q11~Longitude "));
-  serialPort->print(lon, 6);
+  serialPort->print(robot->gpsLon, 6);
 // --------------Mähzonen TB---------------
   serialPort->print(F("|q12~AREA IST : "));  
   serialPort->print(robot->Area_Ist);
   serialPort->print(F("|q14~AREA SOLL : "));  
   serialPort->print(robot->Area_Soll);
-// --------------Mähzonen Ende TB---------------
+  serialPort->print(F("|q203~Point 1 X"));
+  serialPort->print(robot->P1.X,6);
+  serialPort->print(" Y");
+  serialPort->print(robot->P1.Y,6);
+  serialPort->print(F("|q204~Point 2 X"));
+  serialPort->print(robot->P2.X,6);
+  serialPort->print(" Y");
+  serialPort->print(robot->P2.Y,6);
+  serialPort->print(F("|q205~Point 3 X"));
+  serialPort->print(robot->P3.X,6);
+  serialPort->print(" Y");
+  serialPort->print(robot->P3.Y,6);
+  serialPort->print(F("|q206~Point 4 X"));
+  serialPort->print(robot->P4.X,6);
+  serialPort->print(" Y");
+  serialPort->print(robot->P4.Y,6);
+  serialPort->print(F("|q207~Point 5 X"));
+  serialPort->print(robot->P5.X,6);
+  serialPort->print(" Y");
+  serialPort->print(robot->P5.Y,6);
   serialPort->println("}");
 }
 
@@ -691,51 +710,15 @@ void RemoteControl::processGPSMenu(String pfodCmd){
   if (pfodCmd == "q00") robot->gpsUse = !robot->gpsUse;
   else if (pfodCmd.startsWith("q01")) processSlider(pfodCmd, robot->stuckIfGpsSpeedBelow, 0.1);  
   else if (pfodCmd.startsWith("q02")) processSlider(pfodCmd, robot->gpsSpeedIgnoreTime, 1);
-  else if (pfodCmd.startsWith("q13")) processSlider(pfodCmd, robot->Area_Soll, 1);  //------------- Mähzonen TB---------------   
+  else if (pfodCmd.startsWith("q13")) processSlider(pfodCmd, robot->Area_Soll, 1);   
+  else if (pfodCmd == "q203") {robot->P1.X = robot->gpsLat; robot->P1.Y = robot->gpsLon; robot->saveUserSettings(); }
+  else if (pfodCmd == "q204") {robot->P2.X = robot->gpsLat; robot->P2.Y = robot->gpsLon; robot->saveUserSettings(); }
+  else if (pfodCmd == "q205") {robot->P3.X = robot->gpsLat; robot->P3.Y = robot->gpsLon; robot->saveUserSettings(); }
+  else if (pfodCmd == "q206") {robot->P4.X = robot->gpsLat; robot->P4.Y = robot->gpsLon; robot->saveUserSettings(); }
+  else if (pfodCmd == "q207") {robot->P5.X = robot->gpsLat; robot->P5.Y = robot->gpsLon; robot->saveUserSettings(); }
   sendGPSMenu(true);
 }
 
-//----------Mähzonen  GPS Position wird in Point Geschreiben ---------------
-void RemoteControl::sendAREAMenu(boolean update){
-  if (update) serialPort->print("{:"); else serialPort->print(F("{.AREA`1000"));
- float lat, lon;
-  unsigned long age;
-  robot->gps.f_get_position(&lat, &lon, &age);
-  serialPort->print(F("|qa1~Latitude "));
-  serialPort->print(lat, 6); 
-  serialPort->print(F("|qa2~Longitude "));
-  serialPort->print(lon, 6);
-  serialPort->print(F("|qa3~Point 1 X"));
-  serialPort->print(robot->P1.X,6);
-  serialPort->print(" Y");
-  serialPort->print(robot->P1.Y,6);
-  serialPort->print(F("|qa4~Point 2 X"));
-  serialPort->print(robot->P2.X,6);
-  serialPort->print(" Y");
-  serialPort->print(robot->P2.Y,6);
-  serialPort->print(F("|qa5~Point 3 X"));
-  serialPort->print(robot->P3.X,6);
-  serialPort->print(" Y");
-  serialPort->print(robot->P3.Y,6);
-  serialPort->print(F("|qa6~Point 4 X"));
-  serialPort->print(robot->P4.X,6);
-  serialPort->print(" Y");
-  serialPort->print(robot->P4.Y,6);
-  serialPort->print(F("|qa7~Point 5 X"));
-  serialPort->print(robot->P5.X,6);
-  serialPort->print(" Y");
-  serialPort->print(robot->P5.Y,6);
-  serialPort->println("}");
-}
-
-void RemoteControl::processAREAMenu(String pfodCmd){       
- if (pfodCmd.startsWith("qa3")) {robot->P1.X = robot->gpsLat; robot->P1.Y = robot->gpsLon; robot->saveUserSettings(); sendAREAMenu(true);}
-  else if (pfodCmd.startsWith("qa4")) {robot->P2.X = robot->gpsLat; robot->P2.Y = robot->gpsLon; robot->saveUserSettings(); sendAREAMenu(true);}
-  else if (pfodCmd.startsWith("qa5")) {robot->P3.X = robot->gpsLat; robot->P3.Y = robot->gpsLon; robot->saveUserSettings(); sendAREAMenu(true);}
-  else if (pfodCmd.startsWith("qa6")) {robot->P4.X = robot->gpsLat; robot->P4.Y = robot->gpsLon; robot->saveUserSettings(); sendAREAMenu(true);}
-  else if (pfodCmd.startsWith("qa7")) {robot->P5.X = robot->gpsLat; robot->P5.Y = robot->gpsLon; robot->saveUserSettings(); sendAREAMenu(true);}
-//sendAREAMenu(true);
-}
 
 //-----------------Mähzonen Ende----------------------
 
@@ -1278,7 +1261,6 @@ void RemoteControl::processSettingsMenu(String pfodCmd){
       else if (pfodCmd == "s17") sendTemperatureMenu(false);
       else if (pfodCmd == "s15") sendDropMenu(false);
       else if (pfodCmd == "s14") sendGPSMenu(false);
-      else if (pfodCmd == "s18") sendAREAMenu(false); //Mähzonen
       else if (pfodCmd == "s16") sendFreeWheelMenu(false);
       else if (pfodCmd == "sx") sendFactorySettingsMenu(false);
       else if (pfodCmd == "sz") { robot->saveUserSettings(); sendSettingsMenu(true); }
@@ -1667,8 +1649,7 @@ bool RemoteControl::readSerial(){
         else if (pfodCmd.startsWith("l")) processOdometryMenu(pfodCmd);  
         else if (pfodCmd.startsWith("m0")) processRainMenu(pfodCmd);               
         else if (pfodCmd.startsWith("m2")) processTemperatureMenu(pfodCmd);        
-        else if (pfodCmd.startsWith("q")) processGPSMenu(pfodCmd); 
-        else if (pfodCmd.startsWith("qa")) processAREAMenu(pfodCmd); //Mähzonen                      
+        else if (pfodCmd.startsWith("q")) processGPSMenu(pfodCmd);               
         else if (pfodCmd.startsWith("t")) processDateTimeMenu(pfodCmd);  
         else if (pfodCmd.startsWith("i")) processTimerMenu(pfodCmd);      
         else if (pfodCmd.startsWith("p")) processTimerDetailMenu(pfodCmd);      
