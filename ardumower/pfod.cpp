@@ -675,9 +675,9 @@ void RemoteControl::sendGPSMenu(boolean update){
   serialPort->print(F("|q09~Altitude "));
   serialPort->print(robot->gps.f_altitude());
   serialPort->print(F("|q10~Latitude "));
-  serialPort->print(robot->gpsLat, 6); 
+  serialPort->print(lat, 6); 
   serialPort->print(F("|q11~Longitude "));
-  serialPort->print(robot->gpsLon, 6);
+  serialPort->print(lon, 6);
 // --------------Mähzonen TB---------------
   serialPort->print(F("|q12~AREA IST : "));  
   serialPort->print(robot->Area_Ist);
@@ -706,16 +706,19 @@ void RemoteControl::sendGPSMenu(boolean update){
   serialPort->println("}");
 }
 
-void RemoteControl::processGPSMenu(String pfodCmd){      
+void RemoteControl::processGPSMenu(String pfodCmd){  
+  float lat, lon;
+  unsigned long age;
+  robot->gps.f_get_position(&lat, &lon, &age);    
   if (pfodCmd == "q00") robot->gpsUse = !robot->gpsUse;
   else if (pfodCmd.startsWith("q01")) processSlider(pfodCmd, robot->stuckIfGpsSpeedBelow, 0.1);  
   else if (pfodCmd.startsWith("q02")) processSlider(pfodCmd, robot->gpsSpeedIgnoreTime, 1);
   else if (pfodCmd.startsWith("q13")) processSlider(pfodCmd, robot->Area_Soll, 1);   
-  else if (pfodCmd == "q203") {robot->P1.X = robot->gpsLat; robot->P1.Y = robot->gpsLon; robot->saveUserSettings(); }
-  else if (pfodCmd == "q204") {robot->P2.X = robot->gpsLat; robot->P2.Y = robot->gpsLon; robot->saveUserSettings(); }
-  else if (pfodCmd == "q205") {robot->P3.X = robot->gpsLat; robot->P3.Y = robot->gpsLon; robot->saveUserSettings(); }
-  else if (pfodCmd == "q206") {robot->P4.X = robot->gpsLat; robot->P4.Y = robot->gpsLon; robot->saveUserSettings(); }
-  else if (pfodCmd == "q207") {robot->P5.X = robot->gpsLat; robot->P5.Y = robot->gpsLon; robot->saveUserSettings(); }
+  else if (pfodCmd == "q203") {robot->P1.X = lat; robot->P1.Y = lon; robot->saveUserSettings(); }
+  else if (pfodCmd == "q204") {robot->P2.X = lat; robot->P2.Y = lon; robot->saveUserSettings(); }
+  else if (pfodCmd == "q205") {robot->P3.X = lat; robot->P3.Y = lon; robot->saveUserSettings(); }
+  else if (pfodCmd == "q206") {robot->P4.X = lat; robot->P4.Y = lon; robot->saveUserSettings(); }
+  else if (pfodCmd == "q207") {robot->P5.X = lat; robot->P5.Y = lon; robot->saveUserSettings(); }
   sendGPSMenu(true);
 }
 

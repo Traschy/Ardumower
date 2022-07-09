@@ -1196,10 +1196,10 @@ void Robot::processGPSData()
   gpsX = (float)gps.distance_between(nlat,  gpsLon,  gpsLat, gpsLon);
   gpsY = (float)gps.distance_between(gpsLat, nlon,   gpsLat, gpsLon);
   
-  Serial.print ("lat: ");
-  Serial.println(nlat,6);
-  Serial.print ("lon: ");
-  Serial.println(nlon,6);
+  //Serial.print ("lat: ");
+  //Serial.println(nlat,6);
+  //Serial.print ("lon: ");
+  //Serial.println(nlon,6);
 
 //----------------------------------------------------------------------------------------------------------------------------
 // Abstand und Richtung von Robby zu einem definierten Punkt
@@ -1216,8 +1216,8 @@ void Robot::processGPSData()
 
   abstand = gps.distance_between(P1.X,  P1.Y,  nlat, nlon);
   if (radius >= abstand) Area_Ist = 1;
-  Serial.print ("Abstand Area 1: ");
-  Serial.println(abstand);
+  //Serial.print ("Abstand Area 1: ");
+  //Serial.println(abstand);
   
   richtung = gps.course_to (P1.X,  P1.Y,  nlat, nlon);
   Serial.print ("Richtung Area 1:N ");
@@ -1228,8 +1228,8 @@ void Robot::processGPSData()
 
   abstand = gps.distance_between(P2.X,  P2.Y,  nlat, nlon);
   if (radius >= abstand) Area_Ist = 2;
-  Serial.print ("Abstand Area 2: ");
-  Serial.println(abstand);
+  //Serial.print ("Abstand Area 2: ");
+  //Serial.println(abstand);
 
   richtung = gps.course_to (P2.X,  P2.Y,  nlat, nlon);
   Serial.print ("Richtung Area 2:N ");
@@ -1240,8 +1240,8 @@ void Robot::processGPSData()
 
   abstand = gps.distance_between(P3.X,  P3.Y,  nlat, nlon);
   if (radius >= abstand) Area_Ist = 3;
-  Serial.print ("Abstand Area 3: ");
-  Serial.println(abstand);
+  //Serial.print ("Abstand Area 3: ");
+  //Serial.println(abstand);
 
   richtung = gps.course_to (P3.X,  P3.Y,  nlat, nlon);
   Serial.print ("Richtung Area 3:N ");
@@ -1252,8 +1252,8 @@ void Robot::processGPSData()
   
   abstand = gps.distance_between(P4.X,  P4.Y,  nlat, nlon);
   if (radius >= abstand) Area_Ist = 4;
-  Serial.print ("Abstand Area 4:N ");
-  Serial.println(abstand);
+  //Serial.print ("Abstand Area 4:N ");
+  //Serial.println(abstand);
 
   richtung = gps.course_to (P4.X,  P4.Y,  nlat, nlon);
   Serial.print ("Richtung Area 4:N ");
@@ -1263,8 +1263,8 @@ void Robot::processGPSData()
   
   abstand = gps.distance_between(P5.X,  P5.Y,  nlat, nlon);
   if (radius >= abstand) Area_Ist = 5;
-  Serial.print ("Abstand Area 5: ");
-  Serial.println(abstand);
+  //Serial.print ("Abstand Area 5: ");
+  //Serial.println(abstand);
 
   richtung = gps.course_to (P5.X,  P5.Y,  nlat, nlon);
   Serial.print ("Richtung Area 5:N ");
@@ -1274,10 +1274,10 @@ void Robot::processGPSData()
 
   if ( (Area_Ist != 1) && (Area_Ist != 2)&& (Area_Ist != 3)&& (Area_Ist != 4)&& (Area_Ist != 5) ) Area_Ist = 0;
   
-  Serial.print("AREA IST:");
-  Serial.println(Area_Ist);
-  Serial.print("AREA SOLL:");
-  Serial.println(Area_Soll);
+  //Serial.print("AREA IST:");
+  //Serial.println(Area_Ist);
+  //Serial.print("AREA SOLL:");
+  //Serial.println(Area_Soll);
 }
 
 //-----------------------------Mähzonen Ende TB----------------------------------------
