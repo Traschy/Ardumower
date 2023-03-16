@@ -16,6 +16,7 @@ void Robot::loadSaveRobotStats(boolean readflag){
   eereadwrite(readflag, addr, statsBatteryChargingCapacityTrip);
   eereadwrite(readflag, addr, statsBatteryChargingCapacityTotal);
   eereadwrite(readflag, addr, statsBatteryChargingCapacityAverage);
+  eereadwrite(readflag, addr, statsBladeTimeMinutesTotal);
    // <----------------------------new robot stats to save goes here!----------------
   Console.print(F("loadSaveRobotStats addrstop="));
   Console.println(addr);
@@ -173,10 +174,12 @@ void Robot::printSettingSerial(){
   Console.print(F("Ardumower "));
   Console.print(VER);
   Console.print(F("  "));
-    #if defined (PCB_1_2)
+  #if defined (PCB_1_2)
      Console.print(F("PCB 1.2"));
   #elif defined (PCB_1_3)
      Console.print(F("PCB 1.3"));  
+  #elif defined (PCB_1_4)
+     Console.print(F("PCB 1.4"));  
   #endif
   #ifdef __AVR__
     Console.print(F("  Arduino Mega"));
@@ -527,6 +530,8 @@ void Robot::printSettingSerial(){
   Console.println(statsMowTimeMinutesTrip);
   Console.print  (F("statsMowTimeMinutesTotal                   : "));
   Console.println(statsMowTimeMinutesTotal);
+  Console.print  (F("statsBladeTimeMinutesTotal                   : "));
+  Console.println(statsBladeTimeMinutesTotal);
   Console.print  (F("statsBatteryChargingCounterTotal           : "));
   Console.println(statsBatteryChargingCounterTotal);
   Console.print  (F("statsBatteryChargingCapacityTrip in mAh    : "));
@@ -563,9 +568,19 @@ void Robot::deleteUserSettings(){
 
 void Robot::deleteRobotStats(){
   statsMowTimeMinutesTrip = statsMowTimeMinutesTotal = statsBatteryChargingCounterTotal =
-  statsBatteryChargingCapacityTotal = statsBatteryChargingCapacityTrip = 0;
+  statsBatteryChargingCapacityTotal = statsBatteryChargingCapacityTrip = statsBladeTimeMinutesTotal = 0;
   loadSaveRobotStats(false);
   Console.println(F("ALL STATISTICS DELETED!")); 
+}
+
+void Robot::deleteBladeStats(){
+  Console.println(F("please wait..."));
+	Buzzer.tone(1400);
+        statsBladeTimeMinutesTotal = 0;
+  loadSaveRobotStats(false);
+        delay(1000);
+        Console.println(F("BLADE STATISTIC DELETED!")); 
+        Buzzer.noTone();
 }
 
 void Robot::addErrorCounter(byte errType){   
@@ -637,10 +652,12 @@ void Robot::checkRobotStats(){
 
 //----------------stats mow time------------------------------------------------------
   statsMowTimeHoursTotal = double(statsMowTimeMinutesTotal)/60; 
+  statsBladeTimeHoursTotal = double(statsBladeTimeMinutesTotal)/60; 
   if (statsMowTimeTotalStart) {
         statsMowTimeMinutesTripCounter++;
         statsMowTimeMinutesTrip = statsMowTimeMinutesTripCounter;
         statsMowTimeMinutesTotal++;
+        statsBladeTimeMinutesTotal++;
   } 
   else 
     if (statsMowTimeMinutesTripCounter != 0){
@@ -670,3 +687,4 @@ void Robot::checkRobotStats(){
 
 //----------------new stats goes here------------------------------------------------------
 }
+

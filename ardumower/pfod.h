@@ -57,10 +57,7 @@ class RemoteControl
     void setRobot(Robot *aRobot);
     void initSerial(HardwareSerial* serialPort, uint32_t baudrate);
     bool readSerial();
-    void run(); 
-   
-   
-      
+    void run();    
   private:
     HardwareSerial* serialPort;
     Robot *robot;    
@@ -103,7 +100,8 @@ class RemoteControl
     void sendCompassMenu(boolean update);
     void processCompassMenu(String pfodCmd);
     void processManualMenu(String pfodCmd);
-    void processSettingsMenu(String pfodCmd);      
+    void processSettingsMenu(String pfodCmd); 
+    void sendResetBladeMenu(boolean update);     
     
     // plotting
     void sendPlotMenu(boolean update);
@@ -125,7 +123,7 @@ class RemoteControl
     void sendOdometryMenu(boolean update);
     void sendRainMenu(boolean update);    
     void sendTemperatureMenu(boolean update);
-    void sendGPSMenu(boolean update);           
+    void sendGPSMenu(boolean update);        
     void sendDateTimeMenu(boolean update);
     void sendFactorySettingsMenu(boolean update);    
     void sendADCMenu(boolean update);
@@ -141,7 +139,7 @@ class RemoteControl
     void processRainMenu(String pfodCmd);       
     void processTemperatureMenu(String pfodCmd);
     void processDropMenu(String pfodCmd);    
-    void processGPSMenu(String pfodCmd);          
+    void processGPSMenu(String pfodCmd);           
     void processImuMenu(String pfodCmd);         
     void processRemoteMenu(String pfodCmd);      
     void processBatteryMenu(String pfodCmd);
@@ -150,6 +148,7 @@ class RemoteControl
     void processDateTimeMenu(String pfodCmd);
     void processFactorySettingsMenu(String pfodCmd); 
     void processInfoMenu(String pfodCmd);
+    void processResetBladeMenu(String pfodCmd); 
 
     // timer
     void sendTimerDetailMenu(int timerIdx, boolean update);
@@ -162,3 +161,5 @@ class RemoteControl
 
 
 #endif
+
+

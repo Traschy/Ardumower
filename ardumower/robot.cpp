@@ -64,6 +64,7 @@ DHT dht(DHTPIN, DHTTYPE);
 #include "timer.h"
 // -----------------------------
 
+
 // Spannungsteiler Gesamtspannung ermitteln (Reihenschaltung R1-R2, U2 bekannt, U_GES zu ermitteln)
 float Robot::voltageDividerUges(float R1, float R2, float U2){
 	return (U2/R2 * (R1+R2));  // Uges 
@@ -310,6 +311,8 @@ void Robot::setup()  {
 		 Console.print(F("PCB 1.2"));
   #elif defined (PCB_1_3)
      Console.print(F("PCB 1.3"));  
+  #elif defined (PCB_1_4)
+     Console.print(F("PCB 1.4"));  
 	#endif
 	#ifdef __AVR__
 		Console.print(F("  Arduino Mega"));
@@ -482,7 +485,7 @@ void Robot::readSensors(){
       	&& (stateCurr != STATE_STATION_REV) && (stateCurr != STATE_STATION_ROLL) 
       	&& (stateCurr != STATE_STATION_FORW) && (stateCurr != STATE_REMOTE) && (stateCurr != STATE_PERI_OUT_FORW)
         && (stateCurr != STATE_PERI_OUT_REV) && (stateCurr != STATE_PERI_OUT_ROLL) && (stateCurr != STATE_PERI_TRACK)) {
-        Console.println("Error: perimeter too far away");
+        Console.println(F("Error: perimeter too far away"));
         addErrorCounter(ERR_PERIMETER_TIMEOUT);
         setNextState(STATE_ERROR,0);
       }
@@ -503,7 +506,7 @@ void Robot::readSensors(){
     if ((deltaFront <= 95) || (deltaBack <= 95)){
       Console.print(F("LAWN "));
       Console.print(deltaFront);
-      Console.print(",");
+      Console.print(F(","));
       Console.println(deltaBack);
       lawnSensorCounter++;
 			setSensorTriggered(SEN_LAWN_FRONT);
@@ -609,7 +612,7 @@ void Robot::readSensors(){
 
   if (millis() >= nextTimeBattery){
     // read battery
-    nextTimeBattery = millis() + 500;   // geändert Thorsten 100    
+    nextTimeBattery = millis() + 500;       
     if ((abs(chgCurrent) > 0.04) && (chgVoltage > 5)){
       // charging
       batCapacity += (chgCurrent / 36.0);
@@ -625,12 +628,14 @@ void Robot::readSensors(){
 
     #if defined (PCB_1_3)         // Prüfe ob das V1.3 Board verwendet wird - und wenn ja **UZ**
     batvolt = batvolt + DiodeD9;  // dann rechnet zur Batteriespannung den Spannungsabfall der Diode D9 hinzu. (Spannungsabfall an der Diode D9 auf den 1.3 Board (Die Spannungsanzeige ist zu niedrig verursacht durch die Diode D9) **UZ**
+    #elif defined (PCB_1_4)         // Prüfe ob das V1.4 Board verwendet wird - und wenn ja **UZ**
+    batvolt = batvolt + DiodeD9;  // dann rechnet zur Batteriespannung den Spannungsabfall der Diode D9 hinzu. (Spannungsabfall an der Diode D9 auf den 1.4 Board (Die Spannungsanzeige ist zu niedrig verursacht durch die Diode D9) **UZ**
     #endif                        // **UZ**
-    
+
     // low-pass filter
-    double accel = 0.05;  //geändert Thorsten 0.01;
+    double accel = 0.05;
 		//double accel = 1.0;
-    if (abs(batVoltage-batvolt)>8)   batVoltage = batvolt; else batVoltage = (1.0-accel) * batVoltage + accel * batvolt; // geändert Thorsten 5
+    if (abs(batVoltage-batvolt)>8)   batVoltage = batvolt; else batVoltage = (1.0-accel) * batVoltage + accel * batvolt;
     if (abs(chgVoltage-chgvolt)>5)   chgVoltage = chgvolt; else chgVoltage = (1.0-accel) * chgVoltage + accel * chgvolt;
 		if (abs(chgCurrent-curramp)>0.5) chgCurrent = curramp; else chgCurrent = (1.0-accel) * chgCurrent + accel * curramp;       
   } 
@@ -747,7 +752,7 @@ void Robot::checkCurrent(){
        setMotorPWM( 0, 0, false );
        addErrorCounter(ERR_MOTOR_LEFT);
        setNextState(STATE_ERROR, 0);
-       Console.println("Error: Motor Left current");
+       Console.println(F("Error: Motor Left current"));
     }
     if (motorRightSense >= motorPowerMax)
     {
@@ -756,7 +761,7 @@ void Robot::checkCurrent(){
 			 setMotorPWM( 0, 0, false );
        addErrorCounter(ERR_MOTOR_RIGHT);
        setNextState(STATE_ERROR, 0);
-       Console.println("Error: Motor Right current");
+       Console.println(F("Error: Motor Right current"));
     }
   }
 
@@ -777,7 +782,7 @@ void Robot::checkCurrent(){
 
   if (motorMowSenseCounter >= 30){ //ignore motorMowPower for 3 seconds
       motorMowEnable = false;
-      Console.println("Error: Motor mow current");
+      Console.println(F("Error: Motor mow current"));
       addErrorCounter(ERR_MOW_SENSE);
       lastTimeMotorMowStuck = millis();
      // if (rollDir == RIGHT) reverseOrBidir(LEFT); // toggle roll dir
@@ -979,7 +984,7 @@ void Robot::checkRain(){
 void Robot::checkArea() {
   if ((perimeterUse) && (batVoltage > batGoHomeIfBelow)){
     if ((Area_Ist != Area_Soll) && (Area_Soll > 0)) {
-       
+
       if (perimeterUse) setNextState(STATE_PERI_FIND, 0);
          else setNextState(STATE_OFF, 0);
       
@@ -1219,10 +1224,10 @@ void Robot::processGPSData()
   //Serial.print ("Abstand Area 1: ");
   //Serial.println(abstand);
   
-  richtung = gps.course_to (P1.X,  P1.Y,  nlat, nlon);
+  richtung = gps.course_to (P1.X,  P1.Y,  nlat, nlon);                 // gibt den Kurs in Grad (Nord=0, West=270) von Position 1 zu Position 2 zurück, beide als vorzeichenbehaftete Dezimalgrade Breite und Länge angegeben.
   Serial.print ("Richtung Area 1:N ");
   Serial.println(richtung);
-  
+ 
 
   //----------------   Area 2  --------------------------------------------------------
 
@@ -1231,7 +1236,7 @@ void Robot::processGPSData()
   //Serial.print ("Abstand Area 2: ");
   //Serial.println(abstand);
 
-  richtung = gps.course_to (P2.X,  P2.Y,  nlat, nlon);
+  richtung = gps.course_to (P2.X,  P2.Y,  nlat, nlon);               
   Serial.print ("Richtung Area 2:N ");
   Serial.println(richtung);
   
@@ -1426,7 +1431,7 @@ void Robot::setNextState(byte stateNew, byte dir){
     //motorMowModulate = false;              
   } 
   if (stateNew == STATE_STATION){
-    nextTimeBattery = millis();//read immediatly the battery  // geändert Thorsten (zeile "nextTimeBattery = millis();//read immediatly the battery" eingefügt)
+	nextTimeBattery = millis(); //read immediatly the battery
     setMotorPWM(0,0,false);
     setActuator(ACT_CHGRELAY, 0); 
     setDefaults(); 
@@ -1607,7 +1612,6 @@ void Robot::loop()  {
       checkDrop();
       //bb add end
       break;
-      
     case STATE_FORWARD:
       // driving forward            
       if (mowPatternCurr == MOW_BIDIR){
@@ -1749,8 +1753,7 @@ void Robot::loop()  {
         checkSonar();                           
       }  
       checkPerimeterFind();      
-      checkTimeout();
-                     
+      checkTimeout();                    
       break;
     case STATE_PERI_TRACK:
       // track perimeter
@@ -1767,9 +1770,6 @@ void Robot::loop()  {
           setNextState(STATE_STATION, 0);
         }
       }
-
-        
-      
       break;
     case STATE_STATION:
       // waiting until auto-start by user or timer triggered

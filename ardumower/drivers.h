@@ -39,7 +39,7 @@
 
 // ---------- date time --------------------------------------
 
-extern char *dayOfWeek[];
+extern const char *dayOfWeek[];
 
 struct timehm_t {
   byte hour;
@@ -139,3 +139,6 @@ int getDayOfWeek(int month, int day, int year, int CalendarSystem);
 void softwareReset();
 
 #endif 
+
+
+

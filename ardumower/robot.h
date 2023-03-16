@@ -56,7 +56,7 @@
 */
 
 // code version 
-#define VER "1.0a10 Azurit"
+#define VER "1.0a11-dev Azurit"
  
 
 // sensors
@@ -230,7 +230,6 @@ class Robot
     int robotIsStuckCounter ;
 
     //---------Mähzonen TB-----------
-    
     int Area_Soll;
     int Area_Ist;
     //unsigned long nextTimeReadArea;
@@ -532,6 +531,8 @@ class Robot
     unsigned long statsMowTimeMinutesTotal ;
     float statsMowTimeHoursTotal ;
     int statsMowTimeMinutesTrip ;
+    unsigned long statsBladeTimeMinutesTotal ;
+    float statsBladeTimeHoursTotal ;
     unsigned long nextTimeRobotStats ;
     // ------------robot mower communication standard---
 	boolean rmcsUse;
@@ -603,6 +604,7 @@ class Robot
     virtual void deleteUserSettings();        
     virtual void saveUserSettings();
     virtual void deleteRobotStats();
+    virtual void deleteBladeStats();
     
     // other
     virtual void beep(int numberOfBeeps, boolean shortbeep);    
