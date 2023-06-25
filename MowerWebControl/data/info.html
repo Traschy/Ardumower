@@ -56,6 +56,20 @@
 
 	<tr><td><hr></td></tr>
 	<tr><td><div style="text-align:center"><span id="v08">Battery recharged capacity average (mAh)</span></div></td></tr>
+	
+	<tr><td><hr></td></tr>
+	<tr><td><div style="text-align:center;float:center"><button id="v10" type="button" onclick="window.location.href='./blademenu.html';isClicked(this.id)" class="button">Reset Blade Menu</button></div></td></tr>
 
 </body>
+<script>
+	function isChanging(elem){
+		var ID = elem;
+		var val,ele, ele1;
+		var changed = false;
+		ele = document.getElementById(ID);
+		ele1 = document.getElementById( ID + "_act");
+		val = ele.value;
+		ele1.innerText = val;
+	}
+</script>
 </html>
